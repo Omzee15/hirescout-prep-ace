@@ -10,17 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Target, User, LogOut, Settings } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
-interface HeaderProps {
-  user?: {
-    name: string;
-    email: string;
-    prepsRemaining?: number;
-  };
-}
+interface HeaderProps {}
 
-const Header = ({ user }: HeaderProps) => {
+const Header = ({}: HeaderProps) => {
   const location = useLocation();
+  const { user, signOut } = useAuth();
   
   const isActive = (path: string) => location.pathname === path;
   

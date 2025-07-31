@@ -15,6 +15,7 @@ import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import FirstTimeSetup from "./pages/FirstTimeSetup";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/setup" element={<FirstTimeSetup />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

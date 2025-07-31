@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { User, Mail, Lock, Upload, Target } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,20 @@ const Signup = () => {
     confirmPassword: ""
   });
   const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate('/dashboard');
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -30,14 +46,54 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      toast({
+        title: "Password Mismatch",
+        description: "Passwords don't match. Please try again.",
+        variant: "destructive",
+      });
       return;
     }
-    // Handle signup logic here
-    console.log("Signup attempt:", { ...formData, resumeFile });
+
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            full_name: formData.name,
+          }
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Signup Failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account Created!",
+          description: "Please check your email to verify your account.",
+        });
+        // Navigate to login page with success message
+        navigate('/login');
+      }
+    } catch (error) {
+      toast({
+        title: "Signup Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -157,8 +213,8 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full" size="lg" variant="hero">
-                  Create Account
+                <Button type="submit" className="w-full" size="lg" variant="hero" disabled={loading}>
+                  {loading ? "Creating Account..." : "Create Account"}
                 </Button>
               </form>
 
