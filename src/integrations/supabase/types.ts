@@ -40,31 +40,49 @@ export type Database = {
       }
       profiles: {
         Row: {
+          bio: string | null
+          college: string | null
           created_at: string
           email: string | null
           full_name: string | null
+          graduation_year: number | null
           id: string
+          major: string | null
+          phone: string | null
           prep_count: number
+          resume_url: string | null
           total_preps_purchased: number
           updated_at: string
           user_id: string
         }
         Insert: {
+          bio?: string | null
+          college?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
+          graduation_year?: number | null
           id?: string
+          major?: string | null
+          phone?: string | null
           prep_count?: number
+          resume_url?: string | null
           total_preps_purchased?: number
           updated_at?: string
           user_id: string
         }
         Update: {
+          bio?: string | null
+          college?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
+          graduation_year?: number | null
           id?: string
+          major?: string | null
+          phone?: string | null
           prep_count?: number
+          resume_url?: string | null
           total_preps_purchased?: number
           updated_at?: string
           user_id?: string

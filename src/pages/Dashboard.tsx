@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import BuyPrepsModal from "@/components/BuyPrepsModal";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +27,7 @@ const Dashboard = () => {
   const [profile, setProfile] = useState<any>(null);
   const [sessions, setSessions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showBuyModal, setShowBuyModal] = useState(false);
 
   useEffect(() => {
     if (authUser) {
@@ -69,11 +71,7 @@ const Dashboard = () => {
 
   const handleStartSession = async () => {
     if (!profile || profile.prep_count <= 0) {
-      toast({
-        title: "No Preps Remaining",
-        description: "You need to purchase more preps to start an interview.",
-        variant: "destructive",
-      });
+      setShowBuyModal(true);
       return;
     }
 
@@ -101,6 +99,10 @@ const Dashboard = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleBuyMorePreps = () => {
+    setShowBuyModal(true);
   };
 
   const stats = [
@@ -268,7 +270,11 @@ const Dashboard = () => {
                       <p className="text-3xl font-bold text-primary">{profile?.prep_count || 0}</p>
                       <p className="text-sm text-muted-foreground">Preps Remaining</p>
                     </div>
-                    <Button variant="accent" className="w-full">
+                    <Button 
+                      onClick={handleBuyMorePreps} 
+                      variant="accent" 
+                      className="w-full"
+                    >
                       <Plus className="mr-2 h-4 w-4" />
                       Buy More Preps
                     </Button>
@@ -311,6 +317,13 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* Buy Preps Modal */}
+        <BuyPrepsModal 
+          isOpen={showBuyModal}
+          onClose={() => setShowBuyModal(false)}
+          currentPreps={profile?.prep_count || 0}
+        />
 
         <Footer />
       </div>
