@@ -6,29 +6,29 @@
 
 @layer base {
   :root {
-    /* Core Background */
-    --background: 220 20% 98%;
-    --foreground: 215 25% 15%;
+    /* Core Background - matching the dark blue from image */
+    --background: 220 25% 95%;
+    --foreground: 220 25% 15%;
 
     /* Cards & Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 220 25% 15%;
 
     /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 220 25% 15%;
 
-    /* Primary Brand - Professional Blue */
-    --primary: 214 100% 50%;
+    /* Primary - Orange from the gradient */
+    --primary: 25 95% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 214 100% 65%;
+    --primary-glow: 25 95% 70%;
 
-    /* Secondary - Success Green */
-    --secondary: 150 80% 45%;
+    /* Secondary - Coral/Pink from character hair */
+    --secondary: 350 70% 70%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Accent - Energetic Orange */
-    --accent: 25 95% 55%;
+    /* Accent - Mint green from geometric shapes */
+    --accent: 170 60% 55%;
     --accent-foreground: 0 0% 100%;
 
     /* Muted Elements */
