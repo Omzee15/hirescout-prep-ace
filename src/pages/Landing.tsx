@@ -66,25 +66,26 @@ const Landing = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 lg:py-32" style={{
+      <section className="relative overflow-hidden py-20 lg:py-32 min-h-[80vh]" style={{
         backgroundImage: `url('/lovable-uploads/2bd96092-904e-4f7f-b238-25b52600dcb2.png')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center right',
         backgroundRepeat: 'no-repeat'
       }}>
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
+          <div className="flex items-center min-h-[60vh]">
+            <div className="max-w-2xl">
             <Badge variant="secondary" className="mb-6">
               ✨ AI-Powered Interview Preparation
             </Badge>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Ace Every Interview with AI-Powered Mock Sessions
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-8">
               Built for students. Personalized. Insightful. Effective.
               Practice interviews with our advanced AI and get the confidence you need to succeed.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild variant="hero" size="lg" className="text-lg px-8">
                 <Link to="/signup">
                   Get Started
@@ -97,6 +98,7 @@ const Landing = () => {
                   Watch Demo
                 </Link>
               </Button>
+            </div>
             </div>
           </div>
         </div>
