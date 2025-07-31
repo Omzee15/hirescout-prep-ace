@@ -82,7 +82,7 @@ const Interview = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header user={user} />
+      <Header />
       
       {/* Prep Info Bar */}
       <div className="bg-muted/30 border-b border-border">

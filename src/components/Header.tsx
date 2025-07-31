@@ -59,22 +59,14 @@ const Header = ({}: HeaderProps) => {
         <div className="flex items-center space-x-4">
           {user ? (
             <>
-              {/* Preps Badge */}
-              {user.prepsRemaining !== undefined && (
-                <Badge variant="secondary" className="flex items-center gap-1">
-                  <Target className="h-3 w-3" />
-                  Preps: {user.prepsRemaining}
-                </Badge>
-              )}
-              
               {/* User Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={`https://avatar.vercel.sh/${user.email}`} alt={user.name} />
+                      <AvatarImage src={`https://avatar.vercel.sh/${user.email}`} alt={user.email} />
                       <AvatarFallback>
-                        {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                        {user.email?.[0]?.toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -82,29 +74,29 @@ const Header = ({}: HeaderProps) => {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{user.name}</p>
+                      <p className="font-medium">{user.email}</p>
                       <p className="w-[200px] truncate text-sm text-muted-foreground">
-                        {user.email}
+                        User
                       </p>
                     </div>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/dashboard" className="cursor-pointer">
+                    <Link to="/profile" className="flex items-center">
                       <User className="mr-2 h-4 w-4" />
-                      Dashboard
+                      <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/profile" className="cursor-pointer">
+                    <Link to="/admin" className="flex items-center">
                       <Settings className="mr-2 h-4 w-4" />
-                      Profile
+                      <span>Admin</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="cursor-pointer">
+                  <DropdownMenuItem onClick={() => signOut()} className="flex items-center">
                     <LogOut className="mr-2 h-4 w-4" />
-                    Logout
+                    <span>Log out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

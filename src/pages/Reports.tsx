@@ -124,7 +124,7 @@ const Reports = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header user={user} />
+      <Header />
       
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
